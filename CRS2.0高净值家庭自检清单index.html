@@ -1,0 +1,575 @@
+<!DOCTYPE html>
+<html lang="zh-CN">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>CRS 2.0 高净值家庭资金规划自检清单</title>
+<style>
+*{box-sizing:border-box;margin:0;padding:0;-webkit-tap-highlight-color:transparent}
+body{font-family:"PingFang SC","Microsoft YaHei",sans-serif;background:#f0f4f8;color:#1a1a2e;font-size:15px;line-height:1.6}
+.wrap{max-width:900px;margin:0 auto;padding:20px 16px 60px}
+
+/* ── Header ── */
+.header{background:linear-gradient(135deg,#0f2744 0%,#1a3a5c 60%,#2e6da4 100%);color:#fff;border-radius:16px;padding:28px 24px 22px;margin-bottom:20px;position:relative;overflow:hidden}
+.header::after{content:'';position:absolute;right:-40px;top:-40px;width:200px;height:200px;background:rgba(255,255,255,.05);border-radius:50%}
+.header h1{font-size:22px;font-weight:800;letter-spacing:.5px;line-height:1.4}
+.header .en{margin-top:5px;font-size:12px;opacity:.7;font-style:italic;letter-spacing:.3px}
+.header-meta{display:flex;flex-wrap:wrap;gap:8px;margin-top:14px;align-items:center}
+.badge{display:inline-block;background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.25);border-radius:20px;padding:4px 13px;font-size:11px;line-height:1.6}
+.badge-warn{background:rgba(255,200,50,.18);border-color:rgba(255,200,50,.4);color:#ffe066}
+.header-actions{margin-left:auto;display:flex;gap:8px}
+.btn-print{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);color:#fff;border-radius:8px;padding:6px 14px;font-size:12px;cursor:pointer;transition:background .2s}
+.btn-print:hover{background:rgba(255,255,255,.25)}
+
+/* ── Progress bar ── */
+.progress-card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);padding:16px 20px;margin-bottom:20px;display:flex;flex-wrap:wrap;align-items:center;gap:12px}
+.prog-label{font-size:13px;color:#555;font-weight:500;white-space:nowrap}
+.prog-bar-wrap{flex:1;min-width:120px}
+.prog-bg{background:#e8edf2;border-radius:99px;height:8px;overflow:hidden}
+.prog-fill{height:100%;background:linear-gradient(90deg,#27ae60,#2ecc71);border-radius:99px;transition:width .4s ease}
+.prog-count{font-size:13px;color:#27ae60;font-weight:700;white-space:nowrap}
+.prog-divider{font-size:13px;color:#aaa}
+
+/* ── Cards ── */
+.card{background:#fff;border-radius:12px;box-shadow:0 2px 8px rgba(0,0,0,.07);margin-bottom:20px;overflow:hidden}
+.card-head{padding:14px 18px;color:#fff;display:flex;align-items:center;gap:10px}
+.card-head .sec-num{font-size:13px;font-weight:800;background:rgba(255,255,255,.2);border-radius:6px;padding:2px 8px;letter-spacing:.5px}
+.card-head .sec-title{font-size:15px;font-weight:700}
+.card-head .sec-count{margin-left:auto;font-size:12px;opacity:.8;background:rgba(255,255,255,.15);border-radius:12px;padding:2px 10px}
+
+/* ── Checklist table ── */
+.cl-table{width:100%;border-collapse:collapse}
+.cl-table th{background:#f7f9fc;font-size:12px;color:#666;font-weight:600;padding:10px 14px;border-bottom:2px solid #e8edf2;text-align:left}
+.cl-table th:first-child{width:44px;text-align:center}
+.cl-table th:last-child{width:170px;text-align:center}
+.cl-row{transition:background .2s}
+.cl-row:hover{background:#fafbfc}
+.cl-row.done{background:#f0faf4}
+.cl-row.done .cl-item-text{color:#888;text-decoration-color:#bbb}
+.cl-row td{padding:12px 14px;border-bottom:1px solid #f0f2f5;vertical-align:top}
+.cl-row:last-child td{border-bottom:none}
+.cl-cb-cell{text-align:center;vertical-align:middle}
+.cl-checkbox{width:20px;height:20px;cursor:pointer;accent-color:#2e6da4}
+.cl-item-text{font-size:14px;font-weight:500;color:#1a3a5c;line-height:1.5}
+.cl-desc{font-size:12px;color:#888;line-height:1.5;margin-top:3px}
+.status-group{display:flex;flex-direction:column;gap:6px;align-items:flex-start}
+.status-opt{display:flex;align-items:center;gap:5px;cursor:pointer;font-size:12px;color:#444;user-select:none;min-height:28px}
+.status-opt input[type=radio]{accent-color:#2e6da4;width:15px;height:15px;cursor:pointer}
+.status-opt:has(input:checked){font-weight:600}
+.status-opt.opt-ok:has(input:checked){color:#27ae60}
+.status-opt.opt-pending:has(input:checked){color:#d35400}
+
+/* ── Scoring section ── */
+.scoring-intro{padding:16px 18px;background:#f7f9fc;font-size:13px;color:#555;border-bottom:1px solid #eee;line-height:1.7}
+.score-dim{padding:16px 18px;border-bottom:1px solid #f0f2f5}
+.score-dim:last-child{border-bottom:none}
+.score-dim-head{display:flex;align-items:center;gap:8px;margin-bottom:10px}
+.score-dim-code{background:#1a3a5c;color:#fff;border-radius:6px;padding:2px 9px;font-size:12px;font-weight:700;letter-spacing:.5px}
+.score-dim-title{font-size:14px;font-weight:600;color:#1a3a5c}
+.score-options{display:flex;flex-direction:column;gap:6px}
+.score-opt-label{display:flex;align-items:flex-start;gap:8px;cursor:pointer;padding:8px 10px;border-radius:8px;border:1.5px solid #e8edf2;transition:all .15s;font-size:13px;line-height:1.4;user-select:none}
+.score-opt-label:hover{border-color:#2e6da4;background:#f5f8fc}
+.score-opt-label input{margin-top:1px;accent-color:#2e6da4;width:16px;height:16px;cursor:pointer;flex-shrink:0}
+.score-opt-label:has(input:checked){background:#ebf2fa;border-color:#2e6da4}
+.score-opt-score{margin-left:auto;font-size:11px;font-weight:700;color:#2e6da4;background:#e8f0fa;border-radius:10px;padding:1px 8px;white-space:nowrap;flex-shrink:0}
+.score-opt-label:has(input:checked) .score-opt-score{background:#2e6da4;color:#fff}
+
+/* ── Live score bar ── */
+.live-score{position:sticky;top:0;z-index:100;background:#fff;border-bottom:2px solid #e8edf2;padding:12px 18px;display:flex;align-items:center;gap:14px;flex-wrap:wrap;box-shadow:0 3px 10px rgba(0,0,0,.08)}
+.ls-num{font-size:36px;font-weight:900;color:#1a3a5c;min-width:52px;line-height:1;font-variant-numeric:tabular-nums}
+.ls-info{flex:1;min-width:140px}
+.ls-level{font-size:16px;font-weight:700}
+.ls-desc{font-size:11px;color:#666;margin-top:2px;line-height:1.4}
+.ls-prog-wrap{width:100%;order:3}
+.ls-prog-bg{background:#e0e6ed;border-radius:99px;height:7px;overflow:hidden}
+.ls-prog-fill{height:100%;border-radius:99px;transition:width .4s,background .4s}
+.ls-timeline{font-size:11px;font-weight:600;border-radius:20px;padding:3px 10px;white-space:nowrap}
+
+/* ── Risk table ── */
+.risk-table{width:100%;border-collapse:collapse;font-size:13px}
+.risk-table th{background:#1a3a5c;color:#fff;padding:11px 13px;font-weight:600;font-size:12px;text-align:left}
+.risk-table td{padding:11px 13px;border-bottom:1px solid #eee;vertical-align:top;line-height:1.5}
+.risk-table tr:last-child td{border-bottom:none}
+.risk-table tr.active-row td{background:#fff8e1;font-weight:500}
+.risk-badge{display:inline-block;border-radius:6px;padding:3px 10px;font-weight:700;font-size:13px;white-space:nowrap}
+.risk-high{background:#fde8e8;color:#c0392b}
+.risk-mh{background:#fef3e2;color:#d35400}
+.risk-ml{background:#e8f0fa;color:#2e6da4}
+.risk-low{background:#e8f7ef;color:#27ae60}
+.risk-actions{padding-left:16px;margin:0}
+.risk-actions li{margin-bottom:4px;color:#333}
+
+/* ── Result banner ── */
+.result-banner{border-radius:12px;padding:16px 20px;margin-top:20px;display:none}
+.result-banner.show{display:block}
+.result-banner h3{font-size:16px;font-weight:700;margin-bottom:10px}
+.result-banner ul{padding-left:18px}
+.result-banner li{font-size:14px;line-height:2}
+.rb-red{background:#fef2f2;border-left:4px solid #c0392b}
+.rb-orange{background:#fef9ec;border-left:4px solid #d35400}
+.rb-blue{background:#eef5fc;border-left:4px solid #2e6da4}
+.rb-green{background:#edfaf4;border-left:4px solid #27ae60}
+.rb-red h3{color:#c0392b}
+.rb-orange h3{color:#d35400}
+.rb-blue h3{color:#2e6da4}
+.rb-green h3{color:#27ae60}
+
+/* ── Colors ── */
+.c-navy{background:linear-gradient(135deg,#0f2744,#1a3a5c)}
+.c-blue{background:linear-gradient(135deg,#1a3a5c,#2e6da4)}
+.c-teal{background:linear-gradient(135deg,#1a5c5c,#2e9da4)}
+.c-indigo{background:linear-gradient(135deg,#2d3a8c,#4a5dc7)}
+.c-slate{background:linear-gradient(135deg,#2c4a5c,#3d6b8a)}
+.c-purple{background:linear-gradient(135deg,#4a2d6b,#7b52ab)}
+
+/* ── Disclaimer ── */
+.disclaimer{text-align:center;font-size:11px;color:#aaa;line-height:1.9;padding:20px 0 8px}
+
+@media(max-width:600px){
+  .header h1{font-size:18px}
+  .cl-table th:last-child,.cl-table td:last-child{display:none}
+  .ls-num{font-size:28px}
+  .risk-table td:nth-child(3),.risk-table th:nth-child(3){display:none}
+}
+
+@media print{
+  body{background:#fff;font-size:12px}
+  .btn-print,.live-score{display:none!important}
+  .card{box-shadow:none;border:1px solid #ddd;page-break-inside:avoid}
+  .header{background:#1a3a5c!important;-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .cl-table th,.card-head{-webkit-print-color-adjust:exact;print-color-adjust:exact}
+  .progress-card{display:none}
+}
+</style>
+</head>
+<body>
+<div class="wrap">
+
+<!-- ── Header ── -->
+<div class="header">
+  <h1>CRS 2.0 下高净值家庭资金规划自检清单</h1>
+  <div class="en">High-Net-Worth Family Financial Compliance Self-Assessment Checklist</div>
+  <div class="header-meta">
+    <span class="badge">持有跨境资产</span>
+    <span class="badge">海外账户</span>
+    <span class="badge">加密资产</span>
+    <span class="badge">多重税务居民身份</span>
+    <span class="badge badge-warn">CARF 2027 框架</span>
+    <div class="header-actions">
+      <button class="btn-print" onclick="window.print()">打印 / 保存PDF</button>
+    </div>
+  </div>
+</div>
+
+<!-- ── Checklist progress ── -->
+<div class="progress-card">
+  <span class="prog-label">自检完成进度</span>
+  <div class="prog-bar-wrap">
+    <div class="prog-bg"><div class="prog-fill" id="prog-fill" style="width:0%"></div></div>
+  </div>
+  <span class="prog-count" id="prog-count">0</span>
+  <span class="prog-divider">/</span>
+  <span class="prog-label" id="prog-total">0</span>
+  <span class="prog-label">项</span>
+</div>
+
+<!-- ── Section 1: 税务居民身份核查 ── -->
+<div class="card">
+  <div class="card-head c-navy">
+    <span class="sec-num">一</span>
+    <span class="sec-title">税务居民身份核查</span>
+    <span class="sec-count" id="cnt-1">0/5</span>
+  </div>
+  <table class="cl-table">
+    <thead><tr><th></th><th>自检项目</th><th>说明</th><th>状态</th></tr></thead>
+    <tbody id="sec-1"></tbody>
+  </table>
+</div>
+
+<!-- ── Section 2: 海外金融账户排查 ── -->
+<div class="card">
+  <div class="card-head c-blue">
+    <span class="sec-num">二</span>
+    <span class="sec-title">海外金融账户排查</span>
+    <span class="sec-count" id="cnt-2">0/6</span>
+  </div>
+  <table class="cl-table">
+    <thead><tr><th></th><th>自检项目</th><th>说明</th><th>状态</th></tr></thead>
+    <tbody id="sec-2"></tbody>
+  </table>
+</div>
+
+<!-- ── Section 3: 加密资产 ── -->
+<div class="card">
+  <div class="card-head c-teal">
+    <span class="sec-num">三</span>
+    <span class="sec-title">加密资产合规核查（CARF专项）</span>
+    <span class="sec-count" id="cnt-3">0/7</span>
+  </div>
+  <table class="cl-table">
+    <thead><tr><th></th><th>自检项目</th><th>说明</th><th>状态</th></tr></thead>
+    <tbody id="sec-3"></tbody>
+  </table>
+</div>
+
+<!-- ── Section 4: 离岸架构 ── -->
+<div class="card">
+  <div class="card-head c-indigo">
+    <span class="sec-num">四</span>
+    <span class="sec-title">离岸架构与公司结构审查</span>
+    <span class="sec-count" id="cnt-4">0/6</span>
+  </div>
+  <table class="cl-table">
+    <thead><tr><th></th><th>自检项目</th><th>说明</th><th>状态</th></tr></thead>
+    <tbody id="sec-4"></tbody>
+  </table>
+</div>
+
+<!-- ── Section 5: 资产申报 ── -->
+<div class="card">
+  <div class="card-head c-slate">
+    <span class="sec-num">五</span>
+    <span class="sec-title">资产申报与税务合规状态</span>
+    <span class="sec-count" id="cnt-5">0/5</span>
+  </div>
+  <table class="cl-table">
+    <thead><tr><th></th><th>自检项目</th><th>说明</th><th>状态</th></tr></thead>
+    <tbody id="sec-5"></tbody>
+  </table>
+</div>
+
+<!-- ── Section 6: 身份规划 ── -->
+<div class="card">
+  <div class="card-head c-purple">
+    <span class="sec-num">六</span>
+    <span class="sec-title">身份与居住地规划评估</span>
+    <span class="sec-count" id="cnt-6">0/5</span>
+  </div>
+  <table class="cl-table">
+    <thead><tr><th></th><th>自检项目</th><th>说明</th><th>状态</th></tr></thead>
+    <tbody id="sec-6"></tbody>
+  </table>
+</div>
+
+<!-- ── Section 7: 风险评分 ── -->
+<div class="card">
+  <div class="card-head c-navy">
+    <span class="sec-num">七</span>
+    <span class="sec-title">风险自评评分标准</span>
+  </div>
+  <div class="scoring-intro">
+    使用说明：请根据以下六个维度逐项选择最符合您实际情况的描述，系统将自动计算综合风险评分，并在顶部实时显示风险等级。
+  </div>
+
+  <!-- Live score bar inside section 7 scope but positioned sticky globally -->
+  <div class="live-score" id="live-score">
+    <div class="ls-num" id="ls-num">0</div>
+    <div class="ls-info">
+      <div class="ls-level" id="ls-level" style="color:#1a3a5c">请选择各维度情形</div>
+      <div class="ls-desc" id="ls-desc">完成六个维度的选择后，系统自动显示风险等级及建议</div>
+    </div>
+    <span class="ls-timeline" id="ls-timeline" style="display:none"></span>
+    <div class="ls-prog-wrap">
+      <div class="ls-prog-bg"><div class="ls-prog-fill" id="ls-prog-fill" style="width:0%;background:#27ae60"></div></div>
+    </div>
+  </div>
+
+  <div id="score-dims"></div>
+</div>
+
+<!-- ── Section 8: 综合风险等级对照表 ── -->
+<div class="card">
+  <div class="card-head c-navy">
+    <span class="sec-num">八</span>
+    <span class="sec-title">综合风险等级对照表</span>
+  </div>
+  <div style="padding:14px 18px 0;font-size:13px;color:#555">将A至F六项得分相加，对照下表确认风险等级及建议行动。</div>
+  <div style="overflow-x:auto;padding:14px">
+    <table class="risk-table" id="risk-table">
+      <thead>
+        <tr>
+          <th style="width:110px">风险等级</th>
+          <th style="width:90px">总分区间</th>
+          <th>典型场景</th>
+          <th>建议行动</th>
+          <th style="width:110px">处理时限</th>
+        </tr>
+      </thead>
+      <tbody>
+        <tr id="risk-row-high">
+          <td><span class="risk-badge risk-high">★★★ 高风险</span></td>
+          <td style="font-weight:700;color:#c0392b">16分及以上</td>
+          <td>存在未申报境外账户或加密资产；多层离岸架构未合规；税务居民身份混乱</td>
+          <td><ul class="risk-actions"><li>立即停止新增不合规操作</li><li>聘请跨境税务律师评估风险敞口</li><li>评估自愿披露计划（VDP）可行性</li><li>启动架构重组</li></ul></td>
+          <td style="font-weight:600;color:#c0392b">立即处理<br>（30天内）</td>
+        </tr>
+        <tr id="risk-row-mh">
+          <td><span class="risk-badge risk-mh">★★☆ 中高风险</span></td>
+          <td style="font-weight:700;color:#d35400">9–15分</td>
+          <td>离岸架构存在漏洞；部分账户信息未更新；加密资产记录不完整</td>
+          <td><ul class="risk-actions"><li>委托专业顾问进行全面合规审查</li><li>补齐账户申报信息</li><li>完成离岸公司经济实质申报</li><li>整理加密资产交易记录</li></ul></td>
+          <td style="font-weight:600;color:#d35400">尽快处理<br>（3个月内）</td>
+        </tr>
+        <tr id="risk-row-ml">
+          <td><span class="risk-badge risk-ml">★☆☆ 中低风险</span></td>
+          <td style="font-weight:700;color:#2e6da4">4–8分</td>
+          <td>基本合规，但文件不完整；无专业顾问；身份规划尚未启动</td>
+          <td><ul class="risk-actions"><li>聘请跨境税务顾问建立定期审查机制</li><li>补齐历史申报文件</li><li>启动身份与架构优化规划</li></ul></td>
+          <td style="font-weight:600;color:#2e6da4">计划处理<br>（6个月内）</td>
+        </tr>
+        <tr id="risk-row-low">
+          <td><span class="risk-badge risk-low">☆☆☆ 低风险</span></td>
+          <td style="font-weight:700;color:#27ae60">0–3分</td>
+          <td>架构清晰，申报完整，已有专业顾问，定期复查</td>
+          <td><ul class="risk-actions"><li>维持现有合规机制</li><li>每年进行一次合规复查</li><li>持续关注CARF/CRS规则更新</li></ul></td>
+          <td style="font-weight:600;color:#27ae60">持续维护<br>（每年复查）</td>
+        </tr>
+      </tbody>
+    </table>
+  </div>
+</div>
+
+<!-- ── Result banner ── -->
+<div class="result-banner" id="result-banner">
+  <h3 id="result-title"></h3>
+  <ul id="result-list"></ul>
+</div>
+
+<p class="disclaimer">
+  免责声明：本清单仅供参考，不构成法律或税务建议。具体合规方案请咨询持牌税务顾问或法律专业人士。<br>
+  版本日期：2026年4月 &nbsp;·&nbsp; 适用规则版本：CARF 2027 实施框架
+</p>
+</div><!-- /wrap -->
+
+<script>
+/* ── Checklist data ── */
+const CL_SECTIONS = [
+  { id:'1', items:[
+    {t:'确认本人及家庭成员的税务居民身份所在国', d:'税务居民身份决定申报义务，多重居民身份需逐一核查', s:['已确认','待核查']},
+    {t:'是否持有多国护照或居留权', d:'每个居留权对应的税务义务不同，需分别评估', s:['已确认','待核查']},
+    {t:'近三年是否发生居住地变更', d:'居住地变更可能触发税务居民身份转变，需重新评估', s:['已确认','待核查']},
+    {t:'是否了解各居民国的全球征税规则', d:'部分国家（如美国）对全球收入征税，需特别关注', s:['已确认','待核查']},
+    {t:'是否存在"意外税务居民"风险', d:'长期停留某国可能被认定为税务居民，需专业评估', s:['已确认','待核查']},
+  ]},
+  { id:'2', items:[
+    {t:'列出所有境外银行账户（含联名账户）', d:'包括储蓄、活期、定期、外汇账户', s:['已完成','待整理']},
+    {t:'列出境外证券、基金、保险账户', d:'含海外券商账户、离岸保险、海外基金', s:['已完成','待整理']},
+    {t:'确认各账户所在国是否为CRS参与国', d:'参与国账户信息将自动交换至税务居民国', s:['已确认','待核查']},
+    {t:'核查账户开户时填写的税务居民信息是否准确', d:'信息不实可能面临罚款或账户冻结风险', s:['已确认','待更新']},
+    {t:'是否有账户余额超过申报门槛（通常USD 25万）', d:'高余额账户为重点报告对象，需优先关注', s:['已确认','待核查']},
+    {t:'是否持有离岸公司（BVI/开曼等）控制的账户', d:'穿透规则下，实际控制人需承担申报义务', s:['已确认','待核查']},
+  ]},
+  { id:'3', items:[
+    {t:'列出所有加密资产持仓（BTC/ETH/稳定币等）', d:'包括中心化交易所及链上钱包持仓', s:['已完成','待整理']},
+    {t:'确认使用的交易所是否在CARF参与国注册', d:'注册地在参与国的交易所须履行报告义务', s:['已确认','待核查']},
+    {t:'是否有KYC实名认证的交易所账户', d:'实名账户将被纳入CARF报告范围', s:['已确认','待核查']},
+    {t:'近三年加密资产交易记录是否完整保存', d:'税务申报及合规审查需要完整交易记录', s:['已完成','待整理']},
+    {t:'是否有通过DeFi或链上协议产生的收益', d:'DeFi收益的税务处理尚在各国立法完善中，需持续关注', s:['已确认','待核查']},
+    {t:'加密资产是否通过离岸公司持有', d:'穿透规则同样适用于加密资产，需评估架构合规性', s:['已确认','待核查']},
+    {t:'是否了解所在税务居民国对加密资产的征税规则', d:'各国规则差异较大（资本利得税/所得税/增值税）', s:['已了解','待了解']},
+  ]},
+  { id:'4', items:[
+    {t:'梳理现有离岸公司架构（BVI/开曼/塞舌尔等）', d:'明确各层级公司的功能、股权及受益人', s:['已完成','待整理']},
+    {t:'确认各离岸公司是否有实质性经营活动', d:'无实质经营的空壳公司面临被穿透的风险', s:['已确认','待评估']},
+    {t:'离岸公司是否已在当地完成经济实质申报', d:'多个离岸司法管辖区已强制要求经济实质合规', s:['已完成','待办理']},
+    {t:'信托架构是否已更新受益人信息', d:'CRS要求申报信托的委托人、受托人及受益人', s:['已更新','待更新']},
+    {t:'家族办公室架构是否符合当地监管要求', d:'香港、新加坡等地对家办有明确的持牌要求', s:['已确认','待核查']},
+    {t:'是否定期进行架构合规性审查（建议每年一次）', d:'监管规则持续更新，架构需动态调整', s:['已安排','待安排']},
+  ]},
+  { id:'5', items:[
+    {t:'近三年境外资产是否已按要求申报', d:'各国申报门槛不同，需逐一核查', s:['已申报','待核查']},
+    {t:'是否存在未申报的境外收入（利息/股息/租金等）', d:'未申报境外收入是最常见的合规风险点', s:['无风险','需处理']},
+    {t:'是否了解自愿披露计划（VDP）的适用条件', d:'主动披露通常可获得减免处罚，窗口期有限', s:['已了解','待了解']},
+    {t:'是否聘请了熟悉跨境税务的专业顾问', d:'跨境税务复杂度高，专业顾问是必要配置', s:['已聘请','待安排']},
+    {t:'税务申报文件是否妥善保存（建议保存10年）', d:'税务稽查可追溯多年，完整记录是重要保障', s:['已完成','待整理']},
+  ]},
+  { id:'6', items:[
+    {t:'是否评估过税务友好型居住地的可行性', d:'如阿联酋、葡萄牙NHR、马耳他等低税或免税地区', s:['已评估','待评估']},
+    {t:'香港/新加坡身份是否纳入规划考量', d:'两地作为国际金融中心，具备完善的合规架构适配性', s:['已纳入','待考量']},
+    {t:'是否了解放弃某国税务居民身份的程序与成本', d:'部分国家（如美国）有退出税，需提前规划', s:['已了解','待了解']},
+    {t:'子女教育与资产传承是否纳入身份规划', d:'身份规划应与家族传承目标协同考量', s:['已纳入','待考量']},
+    {t:'是否建立了家族财富传承的法律架构', d:'信托、家族基金会是常见的传承工具', s:['已建立','待规划']},
+  ]},
+];
+
+/* ── Scoring data ── */
+const SCORE_DIMS = [
+  { code:'A', title:'税务居民身份', opts:[
+    {t:'仅有单一税务居民身份，且已完整申报', score:0},
+    {t:'持有2个税务居民身份，均已申报', score:1},
+    {t:'持有3个及以上税务居民身份，或有未申报居民身份', score:3},
+    {t:'税务居民身份不明确，或近年有跨国居住但未重新评估', score:4},
+  ]},
+  { code:'B', title:'海外金融账户', opts:[
+    {t:'无境外账户，或仅有1个且已完整申报', score:0},
+    {t:'有2-3个境外账户，均已申报', score:1},
+    {t:'有4个及以上境外账户，或有账户信息未更新', score:3},
+    {t:'存在未申报境外账户，或账户通过离岸公司持有且未穿透申报', score:5},
+  ]},
+  { code:'C', title:'加密资产', opts:[
+    {t:'无加密资产持仓', score:0},
+    {t:'有加密资产，均在合规交易所持有且有完整记录', score:1},
+    {t:'有加密资产，部分在非KYC平台或链上钱包，记录不完整', score:3},
+    {t:'加密资产通过离岸公司持有，或存在大额未申报链上收益', score:5},
+  ]},
+  { code:'D', title:'离岸架构', opts:[
+    {t:'无离岸公司或信托架构', score:0},
+    {t:'有离岸架构，已完成经济实质申报，受益人信息已更新', score:1},
+    {t:'有离岸架构，经济实质申报不完整，或受益人信息未更新', score:3},
+    {t:'多层嵌套离岸架构，无实质经营，未进行合规审查', score:5},
+  ]},
+  { code:'E', title:'税务申报合规', opts:[
+    {t:'近三年境外资产及收入均已完整申报', score:0},
+    {t:'申报基本完整，有个别小额遗漏已补报', score:1},
+    {t:'存在境外收入未申报，但金额较小', score:3},
+    {t:'存在较大金额未申报境外资产或收入，或从未进行境外申报', score:6},
+  ]},
+  { code:'F', title:'专业顾问配置', opts:[
+    {t:'已聘请熟悉跨境税务的专业顾问，定期审查', score:0},
+    {t:'有顾问但非跨境税务专项，偶尔咨询', score:1},
+    {t:'无专业顾问，依赖自行判断', score:2},
+  ]},
+];
+
+const LEVELS = [
+  { min:16, label:'★★★ 高风险', color:'#c0392b', prog:'#c0392b', rb:'rb-red', timeline:'立即处理（30天内）',
+    desc:'存在未申报境外账户或加密资产，或架构已被穿透，需立即处理',
+    actions:['立即停止新增不合规操作','聘请跨境税务律师评估风险敞口','评估自愿披露计划（VDP）可行性','启动架构重组与合规整改'] },
+  { min:9,  label:'★★☆ 中高风险', color:'#d35400', prog:'#e67e22', rb:'rb-orange', timeline:'尽快处理（3个月内）',
+    desc:'架构存在合规漏洞，或税务居民身份不清晰，需尽快处理',
+    actions:['委托专业顾问进行全面合规审查','补齐账户申报信息','完成离岸公司经济实质申报','整理加密资产交易记录'] },
+  { min:4,  label:'★☆☆ 中低风险', color:'#2e6da4', prog:'#3498db', rb:'rb-blue', timeline:'计划处理（6个月内）',
+    desc:'基本合规，但文件不完整或无专业顾问，需计划性处理',
+    actions:['聘请跨境税务顾问建立定期审查机制','补齐历史申报文件','启动身份与架构优化规划','关注CARF/CRS规则更新'] },
+  { min:0,  label:'☆☆☆ 低风险', color:'#27ae60', prog:'#2ecc71', rb:'rb-green', timeline:'持续维护（每年复查）',
+    desc:'架构清晰，申报完整，已有专业顾问，维持现有合规机制',
+    actions:['维持现有合规机制','每年进行一次合规复查','持续关注CARF/CRS规则更新','可考虑进一步优化税务架构'] },
+];
+
+/* ── Build checklist ── */
+let totalItems = 0, checkedItems = 0;
+
+CL_SECTIONS.forEach(sec => {
+  const tbody = document.getElementById('sec-' + sec.id);
+  totalItems += sec.items.length;
+  sec.items.forEach((item, i) => {
+    const tr = document.createElement('tr');
+    tr.className = 'cl-row';
+    tr.id = `row-${sec.id}-${i}`;
+    tr.innerHTML = `
+      <td class="cl-cb-cell">
+        <input type="checkbox" class="cl-checkbox" id="cb-${sec.id}-${i}" onchange="onCheck('${sec.id}',${i})">
+      </td>
+      <td>
+        <div class="cl-item-text" id="it-${sec.id}-${i}">${item.t}</div>
+        <div class="cl-desc">${item.d}</div>
+      </td>
+      <td>${item.d}</td>
+      <td>
+        <div class="status-group">
+          <label class="status-opt opt-ok">
+            <input type="radio" name="st-${sec.id}-${i}" value="ok"> □ ${item.s[0]}
+          </label>
+          <label class="status-opt opt-pending">
+            <input type="radio" name="st-${sec.id}-${i}" value="pending"> □ ${item.s[1]}
+          </label>
+        </div>
+      </td>`;
+    tbody.appendChild(tr);
+  });
+  document.getElementById('cnt-' + sec.id).textContent = '0/' + sec.items.length;
+});
+
+document.getElementById('prog-total').textContent = totalItems;
+
+function onCheck(secId, idx) {
+  const cb = document.getElementById(`cb-${secId}-${idx}`);
+  const row = document.getElementById(`row-${secId}-${idx}`);
+  row.classList.toggle('done', cb.checked);
+  updateProgress();
+}
+
+function updateProgress() {
+  checkedItems = document.querySelectorAll('.cl-checkbox:checked').length;
+  const pct = totalItems ? Math.round(checkedItems / totalItems * 100) : 0;
+  document.getElementById('prog-fill').style.width = pct + '%';
+  document.getElementById('prog-count').textContent = checkedItems;
+
+  // per-section counts
+  CL_SECTIONS.forEach(sec => {
+    const checked = document.querySelectorAll(`#sec-${sec.id} .cl-checkbox:checked`).length;
+    const el = document.getElementById('cnt-' + sec.id);
+    el.textContent = checked + '/' + sec.items.length;
+    el.style.background = checked === sec.items.length ? 'rgba(46,204,113,.3)' : 'rgba(255,255,255,.15)';
+  });
+}
+
+/* ── Build scoring dims ── */
+const dimContainer = document.getElementById('score-dims');
+SCORE_DIMS.forEach(dim => {
+  const div = document.createElement('div');
+  div.className = 'score-dim';
+  const opts = dim.opts.map((o, i) =>
+    `<label class="score-opt-label">
+      <input type="radio" name="dim-${dim.code}" value="${o.score}" onchange="calcScore()">
+      <span>${o.t}</span>
+      <span class="score-opt-score">${o.score}分</span>
+    </label>`
+  ).join('');
+  div.innerHTML = `
+    <div class="score-dim-head">
+      <span class="score-dim-code">${dim.code}</span>
+      <span class="score-dim-title">${dim.title}</span>
+    </div>
+    <div class="score-options">${opts}</div>`;
+  dimContainer.appendChild(div);
+});
+
+function calcScore() {
+  let total = 0, answered = 0;
+  SCORE_DIMS.forEach(dim => {
+    const c = document.querySelector(`input[name="dim-${dim.code}"]:checked`);
+    if (c) { total += parseInt(c.value); answered++; }
+  });
+  if (answered === 0) return;
+
+  document.getElementById('ls-num').textContent = total;
+  const level = LEVELS.find(l => total >= l.min);
+  if (!level) return;
+
+  const pct = Math.min(100, Math.round(total / 24 * 100));
+  document.getElementById('ls-level').textContent = level.label;
+  document.getElementById('ls-level').style.color = level.color;
+  document.getElementById('ls-desc').textContent = level.desc;
+  document.getElementById('ls-prog-fill').style.width = pct + '%';
+  document.getElementById('ls-prog-fill').style.background = level.prog;
+
+  const tl = document.getElementById('ls-timeline');
+  tl.textContent = level.timeline;
+  tl.style.display = 'inline-block';
+  tl.style.background = level.color + '1a';
+  tl.style.color = level.color;
+  tl.style.border = '1px solid ' + level.color + '44';
+
+  // highlight risk table row
+  ['high','mh','ml','low'].forEach(id => {
+    document.getElementById('risk-row-' + id).classList.remove('active-row');
+  });
+  const rowMap = { '#c0392b':'high','#d35400':'mh','#2e6da4':'ml','#27ae60':'low' };
+  const rowId = rowMap[level.color];
+  if (rowId) document.getElementById('risk-row-' + rowId).classList.add('active-row');
+
+  // result banner
+  const rb = document.getElementById('result-banner');
+  rb.className = 'result-banner show ' + level.rb;
+  document.getElementById('result-title').textContent = '建议行动清单 — ' + level.label + '  （' + level.timeline + '）';
+  document.getElementById('result-list').innerHTML = level.actions.map(a => `<li>${a}</li>`).join('');
+
+  // scroll result into view on first complete fill
+  if (answered === SCORE_DIMS.length) {
+    setTimeout(() => rb.scrollIntoView({ behavior:'smooth', block:'nearest' }), 100);
+  }
+}
+</script>
+</body>
+</html>
